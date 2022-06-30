@@ -1,0 +1,945 @@
+﻿<Window x:Class="FileManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileManager"
+        mc:Ignorable="d"
+        Title="Leaf File Manager" Height="650" Width="850">
+
+    <Window.Resources>
+       
+    </Window.Resources>
+    
+    <Grid x:Name="wrapper" TextOptions.TextFormattingMode = "Display" MouseDown="dropClick"  Background="White" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="2"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="23"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition />
+            <RowDefinition Height="1"/>
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+
+        <Rectangle Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="#AAA" />
+        <Rectangle Grid.Row="5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="#AAA" />
+        <Rectangle Grid.Row="7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="#AAA" />
+
+        <Grid x:Name="dropdownMaster" Grid.Row="0" Grid.RowSpan="8" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Tag="None"  >
+
+            <Grid x:Name="gridFileTab" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="0" Background="#DDDDEF" Visibility="Hidden" MouseLeave="tabMouseOut" Tag="Files" MouseEnter="tabMouseIn">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+                </Grid.Effect>
+                <Border BorderBrush="#A0A0A0" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                <StackPanel Width="Auto" Height="Auto" Margin="3">
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="New Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+T" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Close Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+W" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Clone Window" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Save Directory Listing..." Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Show Command Prompt" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Copy Folder Path" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+Shift+P" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Copy File Paths" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Copy Universal File Paths" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Copy Column Text" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Set File Attributes..." Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Delete" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Delete" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Delete Perminantly" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Shift+Delete" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Rename" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="F2" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Properties" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Alt+Enter" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Exit" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+            <Grid x:Name="gridEditTab" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="0" Background="#DDDDEF" Visibility="Hidden" MouseLeave="tabMouseOut"   Tag="Edit" MouseEnter="tabMouseIn">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+                </Grid.Effect>
+                <Border BorderBrush="#A0A0A0" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                <StackPanel Width="Auto" Height="Auto" Margin="3">
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="New Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+T" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="New Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+T" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Delete Perminantly" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Text="Shift+Delete" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+            <Grid x:Name="gridSelectionTab" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="0" Background="#DDDDEF" Visibility="Hidden" MouseLeave="tabMouseOut"   Tag="Selection" MouseEnter="tabMouseIn">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+                </Grid.Effect>
+                <Border BorderBrush="#A0A0A0" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                <StackPanel Width="Auto" Height="Auto" Margin="3">
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="New Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+T" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="New Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+T" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Delete Perminantly" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Text="Shift+Delete" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+            <Grid x:Name="gridViewTab" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="0" Background="#DDDDEF" Visibility="Hidden" MouseLeave="tabMouseOut"   Tag="View" MouseEnter="tabMouseIn">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+                </Grid.Effect>
+                <Border BorderBrush="#A0A0A0" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                <StackPanel Width="Auto" Height="Auto" Margin="3">
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="New Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+T" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="New Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+T" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Delete Perminantly" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Text="Shift+Delete" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+            <Grid x:Name="gridActionsTab" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="0" Background="#DDDDEF" Visibility="Hidden" MouseLeave="tabMouseOut" MouseEnter="tabMouseIn"  Tag="Actions">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+                </Grid.Effect>
+                <Border BorderBrush="#A0A0A0" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                <StackPanel Width="Auto" Height="Auto" Margin="3">
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="New Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+T" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="New Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+T" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Delete Perminantly" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Text="Shift+Delete" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+            <Grid x:Name="gridGoTab" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="0" Background="#DDDDEF" Visibility="Hidden" MouseLeave="tabMouseOut"   Tag="Go" MouseEnter="tabMouseIn">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+                </Grid.Effect>
+                <Border BorderBrush="#A0A0A0" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                <StackPanel Width="Auto" Height="Auto" Margin="3">
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Back" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Alt+Left" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Forward" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Alt+Right" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Up One Level" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Backspace" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Delete Perminantly" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Text="Shift+Delete" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+            <Grid x:Name="gridBookmarksTab" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="0" Background="#DDDDEF" Visibility="Hidden" MouseLeave="tabMouseOut" MouseEnter="tabMouseIn"  Tag="Bookmarks">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+                </Grid.Effect>
+                <Border BorderBrush="#A0A0A0" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                <StackPanel Width="Auto" Height="Auto" Margin="3">
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Bookmark This Tab" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+D" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Organize Bookmarks" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+B" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                </StackPanel>
+
+            </Grid>
+            <Grid x:Name="gridToolsTab" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="0" Background="#DDDDEF" Visibility="Hidden" MouseLeave="tabMouseOut"   Tag="Tools" MouseEnter="tabMouseIn">
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+                </Grid.Effect>
+                <Border BorderBrush="#A0A0A0" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                <StackPanel Width="Auto" Height="Auto" Margin="3">
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Search" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="Ctrl+F" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+
+                    </Grid>
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Customize Colors" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Options" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+
+            </Grid>
+            <Grid x:Name="gridHelpTab" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="0" Background="#DDDDEF" Visibility="Hidden" MouseLeave="tabMouseOut" MouseEnter="tabMouseIn"  Tag="Help" >
+                <Grid.Effect>
+                    <DropShadowEffect Opacity="0.5" ShadowDepth="2"/>
+                </Grid.Effect>
+                <Border BorderBrush="#A0A0A0" BorderThickness="1" HorizontalAlignment="Stretch"/>
+
+                <StackPanel Width="Auto" Height="Auto" Margin="3">
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="Help" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <TextBlock Text="F1" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#555" Height="1" Margin="0, 2, 0, 0"/>
+                    <Rectangle HorizontalAlignment="Stretch" Fill="#FFF" Height="1" Margin="0, 0, 0, 1"/>
+
+                    <Grid Height="20" MouseEnter="itemMouseIn" MouseLeave="itemMouseOut" Focusable="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="5"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="17"/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="10"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Border BorderBrush="Transparent" BorderThickness="1" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="6"/>
+
+                        <TextBlock Text="About Leaf" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <TextBlock Text="" Grid.Column="4" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <!-- main section -->
+
+        <Grid Grid.Row="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid x:Name="gridFileTabLabel" VerticalAlignment="Stretch" Grid.Column="0" MouseEnter="labelMouseIn" MouseLeave="labelMouseOut" MouseDown="labelClick" Tag="Files" Focusable="True" >
+                <Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="File" Height="15" Padding="7,0" Foreground="#333"/>
+                </Border>
+            </Grid>
+            <Grid x:Name="gridEditTabLabel" VerticalAlignment="Stretch" Grid.Column="1" MouseEnter="labelMouseIn" MouseLeave="labelMouseOut" MouseDown="labelClick" Tag="Edit" Focusable="True" >
+                <Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="Edit" Height="15" Padding="7,0" Foreground="#333"/>
+                </Border>
+            </Grid>
+            <Grid x:Name="gridSelectionTabLabel" VerticalAlignment="Stretch" Grid.Column="2" MouseEnter="labelMouseIn" MouseLeave="labelMouseOut" MouseDown="labelClick" Tag="Selection" Focusable="True" >
+                <Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="Selection" Height="15" Padding="7,0" Foreground="#333"/>
+                </Border>
+            </Grid>
+            <Grid x:Name="gridViewTabLabel" VerticalAlignment="Stretch" Grid.Column="3" MouseEnter="labelMouseIn" MouseLeave="labelMouseOut" MouseDown="labelClick" Tag="View" Focusable="True"  >
+                <Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="View" Height="15" Padding="7,0" Foreground="#333"/>
+                </Border>
+            </Grid>
+            <Grid x:Name="gridActionsTabLabel" VerticalAlignment="Stretch" Grid.Column="4" MouseEnter="labelMouseIn" MouseLeave="labelMouseOut" MouseDown="labelClick" Tag="Actions" Focusable="True"  >
+                <Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="Actions" Height="15" Padding="7,0" Foreground="#333"/>
+                </Border>
+            </Grid>
+            <Grid x:Name="gridGoTabLabel" VerticalAlignment="Stretch" Grid.Column="5" MouseEnter="labelMouseIn" MouseLeave="labelMouseOut" MouseDown="labelClick" Tag="Go"  Focusable="True" >
+                <Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="Go" Height="15" Padding="7,0" Foreground="#333"/>
+                </Border>
+            </Grid>
+            <Grid x:Name="gridBookmarksTabLabel" VerticalAlignment="Stretch" Grid.Column="6" MouseEnter="labelMouseIn" MouseLeave="labelMouseOut" MouseDown="labelClick" Tag="Bookmarks" Focusable="True"  >
+                <Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="Bookmarks" Height="15" Padding="7,0" Foreground="#333"/>
+                </Border>
+            </Grid>
+            <Grid x:Name="gridToolsTabLabel" VerticalAlignment="Stretch" Grid.Column="7" MouseEnter="labelMouseIn" MouseLeave="labelMouseOut" MouseDown="labelClick" Tag="Tools"  Focusable="True" >
+                <Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="Tools" Height="15" Padding="7,0" Foreground="#333"/>
+                </Border>
+            </Grid>
+            <Grid x:Name="gridHelpTabLabel" VerticalAlignment="Stretch" Grid.Column="8" MouseEnter="labelMouseIn" MouseLeave="labelMouseOut" MouseDown="labelClick" Tag="Help" Focusable="True" >
+                <Border BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Label Content="Help" Height="15" Padding="7,0" Foreground="#333"/>
+                </Border>
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="#DDDDEF">
+
+        </Grid>
+        <Grid Grid.Row="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" ShowGridLines="False"  Background="#DDDDEF">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="3"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="Address" VerticalAlignment="Center" Grid.Column="1" Padding="0"/>
+
+            <Grid VerticalAlignment="Bottom" Height="22" HorizontalAlignment="Stretch" Grid.Column="3" Background="#FFFFFFFF">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="22" />
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="22"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Grid.ColumnSpan="4" BorderBrush="#777" BorderThickness="1, 1, 1, 0" />
+
+                <TextBox BorderBrush="Transparent" Text="C:\Users\admin" Grid.Column="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom"/>
+
+            </Grid>
+
+            <Grid VerticalAlignment="Bottom" Height="22" HorizontalAlignment="Stretch" Grid.Column="5" Background="#FFFFFFFF">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition Width="22" />
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Grid.ColumnSpan="5" BorderBrush="#777" BorderThickness="1, 1, 1, 0" />
+
+                <TextBox BorderBrush="Transparent" Text="" Grid.Column="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Bottom"/>
+
+            </Grid>
+
+        </Grid>
+        <Grid Grid.Row="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#DDDDEF" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="Transparent" BorderThickness="5, 5, 0, 0" Grid.Column="0" >
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#FFF"  >
+                <ScrollViewer VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Focusable="False">
+                    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            </Border>
+            <Border BorderBrush="Transparent" BorderThickness="5, 0, 5, 5" Grid.Column="1" >
+                <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" Height="30" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="250"/>
+                                <ColumnDefinition Width="1"/>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="1"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="1"/>
+                                <ColumnDefinition Width="75"/>
+                                <ColumnDefinition Width="1"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Rectangle Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="#AAA" Margin="0,2"/>
+                            <Rectangle Grid.Column="4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="#AAA" Margin="0,2"/>
+                            <Rectangle Grid.Column="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="#AAA" Margin="0,2"/>
+                            <Rectangle Grid.Column="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="#AAA" Margin="0,2"/>
+
+                            <CheckBox Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+                            <Label Grid.Column="1" Content="Name" Foreground="#FF556677"  VerticalAlignment="Center"></Label>
+                            <Label Grid.Column="3" Content="Date Modified" Foreground="#FF556677"  VerticalAlignment="Center"></Label>
+                            <Label Grid.Column="5"  Content="Type" Foreground="#FF556677" VerticalAlignment="Center" ></Label>
+                            <Label Grid.Column="7" Content="Size" Foreground="#FF556677" VerticalAlignment="Center" ></Label>
+
+                        </Grid>
+
+                        <ScrollViewer VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Grid.Row="1" Background="#FFF" Focusable="False" >
+                            <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
+            </Grid>
+            </Border>
+
+    </Grid>
+        <Grid Grid.Row="8" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="#DDDDEF">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="1"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="15"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Rectangle Grid.Column="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="#AAA" Margin="0, 2" />
+            <Rectangle Grid.Column="6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Fill="#AAA" Margin="0, 2" />
+
+
+            <TextBlock Grid.Column="7" Text="0 items" Margin="5" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="4" Text="0 bytes" Margin="5" VerticalAlignment="Center"/>
+            <TextBlock Grid.Column="1" Text="No File Selected" Margin="5" VerticalAlignment="Center"/>
+
+
+        </Grid>
+    </Grid>
+</Window>
